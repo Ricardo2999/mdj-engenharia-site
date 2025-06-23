@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>MDJ Engenharia - Segurança do Trabalho</title>
+  <style>
+    :root {
+      --primary-color: #1b442f; /* Verde Escuro da MDJ */
+      --secondary-color: #145c36; /* Verde Médio */
+      --accent-color: #28a745; /* Um verde mais vibrante para destaques */
+      --light-bg: #f8f9fa; /* Fundo mais claro */
+      --white: #ffffff;
+      --text-color: #333;
+      --light-text: #555;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif; /* Fonte mais moderna */
+      color: var(--text-color);
+      background-color: var(--light-bg);
+      line-height: 1.6; /* Melhorar legibilidade */
+
+      /* Estilos para a imagem de fundo principal */
+      background-image: url('industria-fundo.webp');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    /* Sobreposição mais suave para a imagem de fundo */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Preto com 60% de opacidade */
+      z-index: -1;
+    }
+
+    /* Estilo para o cabeçalho principal */
+    header {
+      background-color: var(--primary-color);
+      padding: 20px 0;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      z-index: 10; /* Garante que fique acima de outros elementos */
+    }
+
+    header img {
+      max-height: 100px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin: 5px 0 0;
+      font-weight: 300;
+    }
+
+    /* Navegação */
+    nav {
+      background-color: var(--secondary-color);
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky; /* Menu fixo ao rolar */
+      top: 0;
+      z-index: 9; /* Abaixo do header */
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav.sticky {
+        padding: 10px 20px;
+        background-color: rgba(20, 92, 54, 0.95); /* Levemente transparente quando fixo */
+    }
+
+    nav .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px; /* Espaçamento entre os links */
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05em;
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      padding-bottom: 5px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    /* Menu Hamburger para Mobile */
+    .hamburger-menu {
+      display: none; /* Esconde por padrão */
+      color: var(--white);
+      font-size: 1.8em;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100; /* Garante que fique acima de tudo */
+    }
+
+    /* Seção Hero */
+    .hero {
+      background-color: rgba(224, 242, 234, 0.92); /* Fundo quase opaco */
+      padding: 80px 20px; /* Mais padding */
+      text-align: center;
+      color: var(--primary-color);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 60px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 3em; /* Fonte maior */
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.4em; /* Fonte maior */
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-weight: 400;
+      color: var(--light-text);
+    }
+
+    .hero .cta-button {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: var(--white);
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .hero .cta-button:hover {
+        background-color: #218838; /* Tom mais escuro no hover */
+        transform: translateY(-3px);
+    }
+
+    /* Seções de Conteúdo */
+    .section {
+      padding: 60px 20px; /* Mais padding */
+      max-width: 1100px; /* Largura máxima um pouco maior */
+      margin: auto;
+      margin-bottom: 60px;
+      background-color: var(--white); /* Fundo sólido */
+      box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Sombra mais pronunciada */
+      border-radius: 10px; /* Cantos mais arredondados */
+      position: relative;
+      z-index: 1;
+      opacity: 0; /* Esconde para animação de scroll */
+      transform: translateY(20px); /* Move para baixo para animação */
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      color: var(--secondary-color);
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2em;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background-color: var(--accent-color);
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      border-radius: 2px;
+    }
+
+    /* Layout dos Itens (Serviços, Docs, Treinamentos) */
+    .servicos, .treinamentos, .documentos-licencas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Min-width maior */
+      gap: 25px; /* Mais espaço entre os itens */
+      margin-top: 30px;
+    }
+
+    .item {
+      background-color: var(--light-bg); /* Fundo mais claro para os itens */
+      padding: 25px;
+      border-left: 6px solid var(--primary-color); /* Borda mais grossa */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra mais suave */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 8px; /* Cantos arredondados */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item:hover {
+      background-color: var(--white);
+      transform: translateY(-5px); /* Efeito de levitar */
+      border-left-color: var(--accent-color); /* Borda muda de cor no hover */
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .item h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      font-size: 1.3em;
+      font-weight: 600;
+      display: flex;
+      align-items: center; /* Alinha o ícone e o texto */
+      justify-content: space-between; /* Mantém a seta à direita */
+      gap: 10px; /* Espaço entre o ícone e o texto */
+    }
+
+    .item h3 .icon {
+        color: var(--secondary-color); /* Cor dos ícones */
+        font-size: 1.2em; /* Tamanho dos ícones */
+    }
+
+    .item .description {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease-out, opacity 0.6s ease-out; /* Transição mais suave */
+      opacity: 0;
+      padding-top: 0;
+      color: var(--light-text);
+      font-size: 0.95em;
+      line-height: 1.6;
+      flex-grow: 1; /* Para garantir que o conteúdo empurre o ícone para baixo se houver mais texto */
+    }
+
+    .item.active .description {
+      max-height: 300px; /* Ajuste se necessário para o conteúdo */
+      opacity: 1;
+      padding-top: 15px;
+    }
+
+    .item.active {
+        border-left-color: var(--secondary-color); /* Borda ativa */
+    }
+
+    /* Ícone de Seta (Acordeão) */
+    .arrow {
+      border: solid var(--primary-color);
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 4px; /* Mais visível */
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      transition: transform 0.4s ease, border-color 0.3s ease;
+    }
+
+    .item.active .arrow {
+      transform: rotate(-135deg);
+      border-color: var(--secondary-color);
+    }
+
+    /* Estilos para a nova seção de Profissionais */
+    .profissionais-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* FORÇA 2 COLUNAS EM TELAS MAIORES */
+      gap: 30px; /* Mais espaço entre os cards */
+      margin-top: 30px;
+    }
+
+    .profissional-card {
+      background-color: var(--light-bg);
+      padding: 30px; /* Mais padding */
+      border-radius: 10px; /* Cantos arredondados */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profissional-card:hover {
+      transform: translateY(-8px); /* Efeito de levitar mais pronunciado */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .profissional-img {
+      width: 150px; /* Tamanho da imagem */
+      height: 150px;
+      border-radius: 50%; /* Imagem redonda */
+      object-fit: cover; /* Garante que a imagem preencha o círculo sem distorcer */
+      margin-bottom: 20px;
+      border: 4px solid var(--primary-color); /* Borda na imagem */
+      box-shadow: 0 0 0 5px rgba(27, 68, 47, 0.2); /* Sombra suave ao redor da borda */
+    }
+
+    .profissional-card h3 {
+      color: var(--primary-color);
+      font-size: 1.6em; /* Nome maior */
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .profissional-title {
+      color: var(--secondary-color);
+      font-size: 1em;
+      font-weight: 600;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .profissional-description {
+      color: var(--light-text);
+      font-size: 0.95em;
+      line-height: 1.6;
+      flex-grow: 1; /* Para que o texto ocupe o espaço disponível */
+    }
+
+    /* Contato */
+    #contato {
+      text-align: center;
+      background-color: var(--light-bg);
+      border-radius: 10px;
+    }
+
+    #contato p {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    #contato p i {
+      color: var(--secondary-color);
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+
+    #contato p a {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    #contato p a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 25px;
+      position: relative;
+      z-index: 1;
+      font-size: 0.9em;
+    }
+
+    /* Botão Voltar ao Topo */
+    #back-to-top {
+      display: none; /* Escondido por padrão */
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--accent-color);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 99; /* Garante que fique acima de outros elementos */
+    }
+
+    #back-to-top:hover {
+      background-color: #218838;
+      transform: translateY(-3px);
+    }
+
+    html {
+      scroll-behavior: smooth; /* Rolagem suave */
+    }
+
+    /* Correção para rolagem com header fixo */
+    .section::before {
+        content: "";
+        display: block;
+        height: 100px; /* Ajuste conforme a altura total do seu header + nav */
+        margin-top: -100px;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2em;
+      }
+
+      .hero p {
+        font-size: 1.1em;
+      }
+
+      nav .nav-links {
+        display: none; /* Esconde os links no mobile */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--secondary-color);
+        position: absolute;
+        top: 100%; /* Abaixo da nav */
+        left: 0;
+        padding: 10px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+
+      nav .nav-links.active {
+        display: flex; /* Mostra quando ativo */
+      }
+
+      nav .nav-links a {
+        padding: 10px 0;
+        margin: 5px 0;
+      }
+
+      .hamburger-menu {
+        display: block; /* Mostra o hamburger no mobile */
+      }
+
+      .section {
+        padding: 40px 15px;
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+      }
+
+      .servicos, .treinamentos, .documentos-licencas {
+        grid-template-columns: 1fr; /* Uma coluna no mobile */
+      }
+
+      /* Ajuste de responsividade para a nova seção de profissionais */
+      .profissionais-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Duas colunas em tablets, ou 1 se o minmax não permitir 2 */
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2em;
+      }
+      header p {
+        font-size: 0.9em;
+      }
+      .hero h1 {
+        font-size: 1.8em;
+      }
+      .hero p {
+        font-size: 1em;
+      }
+      .hero .cta-button {
+        padding: 12px 25px;
+        font-size: 1em;
+      }
+      #back-to-top {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      /* Ajuste de responsividade para a nova seção de profissionais */
+      .profissionais-grid {
+        grid-template-columns: 1fr; /* Uma coluna em mobile */
+        gap: 20px;
+      }
+      .profissional-img {
+        width: 120px;
+        height: 120px;
+      }
+      .profissional-card h3 {
+        font-size: 1.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Sugestão: Use um logo em formato PNG com fundo transparente para melhor integração -->
+  <img src="logo-mdj.png" alt="Logo MDJ Engenharia">
+  <h1>MDJ Engenharia</h1>
+  <p>A segurança de seus empregados em nossas mãos</p>
+</header>
+
+<nav id="main-nav">
+  <div class="nav-links">
+    <a href="#servicos-tecnicos">Serviços e Laudos</a>
+    <a href="#documentos-licencas">Documentos e Licenças</a>
+    <a href="#treinamentos">Treinamentos</a>
+    <a href="#nossos-profissionais">Nossos Profissionais</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="hamburger-menu">
+    <i class="fas fa-bars"></i>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>ESPECIALISTAS EM SEGURANÇA DO TRABALHO</h1>
+  <p>"Laudos, treinamentos e consultoria com excelência técnica, engenheiros renomados e confiabilidade de uma empresa com mais de 30 anos no mercado"</p>
+  <a href="#contato" class="cta-button">Fale Conosco Agora!</a>
+</section>
+
+<section class="section" id="servicos-tecnicos">
+  <h2>SERVIÇOS TÉCNICOS E LAUDOS</h2>
+  <div class="servicos">
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-file-contract"></i></span> PGR - Programa de Gerenciamento de Riscos (NR-1) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>O PGR é um programa que visa identificar, avaliar e controlar os riscos ocupacionais existentes no ambiente de trabalho, estabelecendo um plano de ação para a gestão desses riscos. É um documento fundamental para a saúde e segurança dos trabalhadores, conforme a NR-1.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-clipboard-list"></i></span> LTCAT - Laudo Técnico de Condições Ambientais de Trabalho (IN 128) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>O Laudo Técnico das Condições Ambientais de Trabalho (LTCAT) é um documento previdenciários, que avalia os riscos ambientais e avalia condições que podem gerar direito à aposentadoria especial. É elaborado por engenheiro de segurança do trabalho e é base para o Perfil Profissiográfico Previdenciário.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-chair"></i></span> AET - Análise Ergonômica do Trabalho (NR 17) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Estudo aprofundado das interações entre o trabalhador, suas tarefas, ferramentas e ambiente, para identificar e corrigir fatores que possam causar desconforto, lesões ou doenças ocupacionais.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-bolt"></i></span> Laudo das Instalações Elétricas (NR 10) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Atesta a conformidade das instalações elétricas com as normas técnicas vigentes (especialmente a NBR 5410 e a NR 10). Ele avalia a segurança dos circuitos, dispositivos de proteção e aterramento, prevenindo acidentes e incêndios.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-cogs"></i></span> Apreciação de Riscos em Máquinas (NR 12) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Processo sistemático de identificação de perigos e avaliação de riscos em máquinas e equipamentos, conforme exigido pela NR 12, para identificar as falhas de segurança e propor medidas para garantir a proteção dos operadores e a conformidade legal.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-fire-alt"></i></span> Relatório de Inspeção de Vasos Sob Pressão (NR 13) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Verifica a conformidade de vasos de pressão, caldeiras, tubulações e tanques com a Norma Regulamentadora 13 (NR-13). Garante a segurança na operação desses equipamentos, prevenindo explosões e acidentes graves através de inspeções com ensaios específicos.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-radiation"></i></span> Laudo de Insalubridade (NR 15)<span class="arrow"></span></h3>
+      <div class="description">
+        <p>Este laudo avalia se os trabalhadores estão expostos a agentes nocivos à saúde (químicos, físicos ou biológicos) acima dos limites de tolerância, conforme a NR-15, caracterizando o direito ao adicional de insalubridade.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-exclamation-triangle"></i></span> Laudo de Periculosidade (NR 16)<span class="arrow"></span></h3>
+      <div class="description">
+        <p>O laudo de periculosidade identifica e avalia a existência de atividades ou operações perigosas (como contato com inflamáveis, explosivos, energia elétrica, roubos ou outras violências físicas) que garantem o direito ao adicional de periculosidade, conforme a NR-16.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-building"></i></span> Laudo de Estabilidade Estrutural <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Avalia a segurança de uma estrutura (edifício, galpão, etc.) de suportar as cargas a que é submetida, garantindo que não há riscos de colapso ou deformações excessivas.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-wheelchair"></i></span> Laudo de Acessibilidade <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Este laudo verifica a conformidade das edificações e espaços com as normas de acessibilidade (como a ABNT NBR 9050), garantindo que pessoas com deficiência ou mobilidade reduzida possam utilizar o ambiente com autonomia e segurança.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-trash-can"></i></span> PGRSS - Programa de gerenciamento de resíduos de serviços de saúde <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Verifica condições de descarte e armazenamento de resíduos de serviços de saúde com relação as normas da ANVISA e CETESB .</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-volume-up"></i></span> Higiene Ocupacional - Ruído <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Avaliação com dosímetro de ruído, para quantificar a exposição e propor medidas de controle, visando atender aos limites de tolerância estabelecidos pela NR-15 e outras normas.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-fire"></i></span> Higiene Ocupacional - Calor <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Avaliação com termômetro IBUTG, verificando os níveis de sobrecarga térmica e propondo medidas preventivas para evitar doenças relacionadas ao calor, em conformidade com a NR-15.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-wave-square"></i></span> Higiene Ocupacional - Vibração (VMB e VCI) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Avaliação com medidor triaxial tipo acelerômetro, identificando os riscos e as medidas de controle necessárias para a prevenção de doenças ocupacionais, conforme a NR-9.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-flask-vial"></i></span> Higiene Ocupacional - Agentes Químicos <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Estudo, análise e monitoramento da presença de agentes químicos (metais, vapores, ácidos, etc), avaliando a exposição e implementando medidas de controle para garantir a segurança e a saúde, em conformidade com a NR-9 e outras diretrizes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="documentos-licencas">
+    <h2>DOCUMENTOS E LICENÇAS</h2>
+    <div class="documentos-licencas">
+        <div class="item">
+            <h3><span class="icon"><i class="fas fa-certificate"></i></span> AVCB - Auto de Vistoria do Corpo de Bombeiros <span class="arrow"></span></h3>
+            <div class="description">
+                <p>Documento emitido pelo Corpo de Bombeiros que atesta que a edificação possui as condições de segurança contra incêndio e pânico exigidas pela legislação, incluindo medidas estruturais, equipamentos e saídas de emergência.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <h3><span class="icon"><i class="fas fa-certificate"></i></span> CLCB - Certificado de Licença do Corpo de Bombeiros <span class="arrow"></span></h3>
+            <div class="description">
+                <p>Certificado simplificado, também emitido pelo Corpo de Bombeiros, para edificações de menor risco de incêndio, atestando a conformidade com as normas de segurança contra incêndio e pânico.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <h3><span class="icon"><i class="fas fa-leaf"></i></span> CETESB - Licença Ambiental Simplificada <span class="arrow"></span></h3>
+            <div class="description">
+                <p>Documento emitido pela CETESB (Companhia Ambiental do Estado de São Paulo) que autoriza o funcionamento de atividades de baixo potencial poluidor ou que não geram impactos ambientais significativos, garantindo a conformidade ambiental da empresa.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <h3><span class="icon"><i class="fas fa-shield-alt"></i></span> Licença de Vigilância Sanitária (se aplicável) <span class="arrow"></span></h3>
+            <div class="description">
+                <p>Licença emitida pela Vigilância Sanitária que atesta a conformidade de estabelecimentos (especialmente aqueles que lidam com alimentos, medicamentos, produtos de saúde, etc.) com as normas sanitárias, garantindo a segurança e a saúde pública.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="treinamentos">
+  <h2>TREINAMENTOS E CURSOS</h2>
+  <div class="treinamentos">
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-people-group"></i></span> CIPA (Comissão Interna de Prevenção de Acidentes) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento para membros da CIPA, capacitando-os a identificar riscos, promover a prevenção de acidentes e doenças ocupacionais, e fiscalizar o cumprimento das normas de segurança no ambiente de trabalho. Conforme a NR 05.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-person-digging"></i></span> NR 33 (Espaços Confinados) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Capacitação para trabalhadores que atuam em espaços confinados (locais não projetados para ocupação humana contínua, com ventilação deficiente ou risco de asfixia). O treinamento aborda os riscos, equipamentos de segurança, procedimentos de entrada e resgate. Obrigatório pela NR 33.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-person-climbing"></i></span> NR 35 (Trabalho em Altura) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento para trabalhadores que realizam atividades acima de 2 metros do nível inferior, onde há risco de queda. Abrange planejamento, organização e execução do trabalho em altura, uso de EPIs, sistemas de ancoragem e procedimentos de emergência. Exigido pela NR 35.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-fire-extinguisher"></i></span> Brigada de Incêndio <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Capacitação de equipes para atuar em situações de incêndio, incluindo prevenção, combate a princípios de incêndio, abandono de área e primeiros socorros. Essencial para a segurança da edificação e das pessoas.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-pallet"></i></span> NR 11 (Transporte, Movimentação, Armazenagem e Manuseio de Materiais) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento focado na segurança na operação de equipamentos de transporte e movimentação de cargas, como empilhadeiras, pontes rolantes e talhas. Aborda os riscos envolvidos e as práticas seguras para prevenir acidentes. Conforme a NR 11.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-gear"></i></span> NR 12 - Segurança em Máquinas e Equipamentos <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Capacitação sobre os requisitos de segurança para a operação e manutenção de máquinas e equipamentos, visando prevenir acidentes e garantir a conformidade com a NR 12.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-hard-hat"></i></span> EPI - Equipamentos de Proteção Individual <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento sobre a correta utilização, guarda e conservação dos Equipamentos de Proteção Individual (EPIs), destacando a importância da sua utilização para a segurança do trabalhador, conforme a NR 06.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-person-walking"></i></span> Ergonomia - Manuseio de Cargas / Postura <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Capacitação sobre princípios ergonômicos, técnicas corretas de manuseio e levantamento de cargas, e a importância da postura adequada para a prevenção de lesões musculoesqueléticas e promoção do bem-estar, em conformidade com a NR 17.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-heart-pulse"></i></span> Primeiros Socorros / APH <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento em técnicas básicas de primeiros socorros para atendimento a vítimas de acidentes ou mal súbito no ambiente de trabalho, preparando os colaboradores para agir em emergências.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-calendar-check"></i></span> CIPA / SIPAT (Semanas de Prevenção) <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Treinamento que abrange tanto a formação da CIPA (Comissão Interna de Prevenção de Acidentes) quanto a organização e temas relevantes para a SIPAT (Semana Interna de Prevenção de Acidentes do Trabalho), com foco na conscientização e prevenção de acidentes e doenças ocupacionais.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3><span class="icon"><i class="fas fa-fire-extinguisher"></i></span> Treinamento de Brigada de Incêndio <span class="arrow"></span></h3>
+      <div class="description">
+        <p>Capacitação de equipes para atuar em situações de incêndio, incluindo prevenção, combate a princípios de incêndio, abandono de área e primeiros socorros. Essencial para a segurança da edificação e das pessoas, conforme Instrução Técnica (IT-17).</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Nova Seção: Nossos Profissionais -->
+<section class="section" id="nossos-profissionais">
+  <h2>NOSSOS PROFISSIONAIS</h2>
+  <div class="profissionais-grid">
+
+    <div class="profissional-card">
+      <img src="mario-damore-junior.jpg" alt="Foto de Mario D'Amore Junior" class="profissional-img">
+      <h3>Mario D'Amore Junior</h3>
+      <p class="profissional-title">Engenheiro Mecânico e de Processos | Engenheiro de Segurança do Trabalho | Perito da Justiça do Trabalho</p>
+      <div class="profissional-description">
+        <p>Com vasta experiência em engenharia mecânica e de processos, Mario D'Amore Junior é um engenheiro de segurança do trabalho renomado e atua como perito da justiça do trabalho, oferecendo expertise técnica e legal em diversas áreas da segurança ocupacional.</p>
+      </div>
+    </div>
+
+    <div class="profissional-card">
+      <img src="paulo-fernando-damore.jpg" alt="Foto de Paulo Fernando D'Amore" class="profissional-img">
+      <h3>Paulo Fernando D'Amore</h3>
+      <p class="profissional-title">Engenheiro Civil | Engenheiro de Segurança do Trabalho | Perito da Justiça do Trabalho | Instrutor Certificado</p>
+      <div class="profissional-description">
+        <p>Engenheiro civil e de segurança do trabalho, Paulo Fernando D'Amore é um perito atuante na justiça do trabalho e instrutor especializado em temas cruciais como trabalho em altura (NR 35), espaço confinado (NR 33), operação de empilhadeiras, transpaleteiras, plataformas elevatórias e pontes rolantes (NR 11).</p>
+      </div>
+    </div>
+
+    <div class="profissional-card">
+      <img src="renato-luis-damore.jpg" alt="Foto de Renato Luis D'Amore" class="profissional-img">
+      <h3>Renato Luis D'Amore</h3>
+      <p class="profissional-title">Engenheiro Eletricista | Engenheiro de Segurança do Trabalho | Perito da Justiça do Trabalho | Instrutor NR 10</p>
+      <div class="profissional-description">
+        <p>Especialista em segurança elétrica, Renato Luis D'Amore é engenheiro eletricista, engenheiro de segurança do trabalho e perito da justiça do trabalho. Ele também é instrutor qualificado para cursos da NR 10, garantindo a segurança em instalações e serviços com eletricidade.</p>
+      </div>
+    </div>
+
+    <div class="profissional-card">
+      <img src="ricardo-luiz-molina.jpg" alt="Foto de Ricardo Luiz Molina" class="profissional-img">
+      <h3>Ricardo Luiz Molina</h3>
+      <p class="profissional-title">Engenheiro de Produção | Engenheiro de Segurança do Trabalho | Especialista em Apreciação de Riscos em Máquinas | Higienista Ocupacional</p>
+      <div class="profissional-description">
+        <p>Engenheiro de produção e segurança do trabalho, Ricardo Luiz Molina possui vasta experiência em apreciação de riscos em máquinas (NR 12) e atua como higienista ocupacional, focando na prevenção e controle de agentes ambientais no ambiente de trabalho.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="contato">
+  <h2>Contato</h2>
+  <p><i class="fas fa-phone"></i> Telefone: (11) 4365-1105</p>
+  <p><i class="fab fa-whatsapp"></i> Whatsapp: <a href="https://wa.me/5511975970268" target="_blank"> (11) 97597-0268</a></p>
+  <p><i class="fas fa-envelope"></i> Email: <a href="mailto:adm@mdjengenharia.com.br">adm@mdjengenharia.com.br</a></p>
+  <p><i class="fab fa-instagram"></i> Instagram: <a href="https://www.instagram.com/mdjengenharia" target="_blank">mdjengenharia</a></p>
+  <p><i class="fas fa-map-marker-alt"></i> Localização: <a href="https://maps.google.com/?cid=16518210630908260405" target="_blank">Rua Cidade de São Sebastião, 230 - Nova Petrópolis, São Bernardo do Campo - SP, 09770-590</a></p>
+  <!-- Sugestão: Você pode incorporar um mapa do Google Maps aqui -->
+  <!-- <div style="margin-top: 30px; height: 300px; width: 100%;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.779261899014!2d-46.5492167!3d-23.5786443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5b5b4e72c841%3A0xe54d3e8e52e4f01!2sMDJ%20Engenharia%20-%20Seguran%C3%A7a%20e%20Medicina%20do%20Trabalho!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" width="100%" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div> -->
+</section>
+
+<footer>
+  <p>&copy; 2025 MDJ Engenharia - Segurança do Trabalho. Todos os direitos reservados.</p>
+</footer>
+
+<button id="back-to-top" title="Voltar ao Topo">↑</button>
+
+<script>
+  // Script para o acordeão (já existente, mantido e melhorado)
+  document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('click', function() {
+      // Fecha outros itens abertos na mesma seção
+      const parentSection = this.closest('.section');
+      parentSection.querySelectorAll('.item.active').forEach(openItem => {
+        if (openItem !== this) {
+          openItem.classList.remove('active');
+        }
+      });
+      this.classList.toggle('active');
+    });
+  });
+
+  // Script para rolagem suave (já existente, mantido)
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const navHeight = document.getElementById('main-nav').offsetHeight;
+        const offset = headerHeight + navHeight + 20; // Ajuste o 20px se precisar de mais/menos espaço
+
+        window.scrollTo({
+          top: targetElement.offsetTop - offset,
+          behavior: "smooth"
+        });
+
+        // Fechar menu hamburger se estiver aberto após clicar em um link
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+      }
+    });
+  });
+
+  // Script para o menu hamburger
+  document.querySelector('.hamburger-menu').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  });
+
+  // Script para o menu fixo (sticky nav) e botão "Voltar ao Topo"
+  const nav = document.getElementById('main-nav');
+  const heroSection = document.querySelector('.hero');
+  const backToTopButton = document.getElementById('back-to-top');
+  const headerOffset = document.querySelector('header').offsetHeight;
+
+  window.addEventListener('scroll', () => {
+    // Sticky Nav
+    if (window.scrollY > headerOffset) {
+      nav.classList.add('sticky');
+    } else {
+      nav.classList.remove('sticky');
+    }
+
+    // Back to Top button
+    if (window.scrollY > heroSection.offsetHeight / 2) { // Aparece depois de rolar metade da seção Hero
+      backToTopButton.style.display = 'block';
+    } else {
+      backToTopButton.style.display = 'none';
+    }
+  });
+
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Animação de scroll para seções
+  const sections = document.querySelectorAll('.section');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1 // A seção se torna visível quando 10% dela está na tela
+  };
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Para a animação rodar apenas uma vez
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  // Função para aplicar a classe 'visible' à primeira seção assim que a página carrega
+  // Isso garante que a animação da primeira seção seja vista ao carregar, se ela já estiver na tela.
+  document.addEventListener('DOMContentLoaded', () => {
+    if (sections.length > 0) {
+      // Verifica se a primeira seção já está no viewport ao carregar
+      const firstSection = sections[0];
+      const rect = firstSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        firstSection.classList.add('visible');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
